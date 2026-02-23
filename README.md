@@ -4,7 +4,7 @@
 
 OniU is a content platform where creators keep what they earn and fans actually own what they buy — powered by BNB Chain.
 
-🌐 https://oniu.pages.dev
+🌐 https://oniu.uk
 
 ---
 
@@ -92,7 +92,7 @@ Buy USDT on Binance or OKX and withdraw using the BEP-20 (BNB Smart Chain) netwo
 
 ## Get Started
 
-→ **[oniu.pages.dev](https://oniu.pages.dev)**
+→ **[oniu.uk](https://oniu.uk)**
 
 ---
 
