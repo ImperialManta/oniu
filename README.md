@@ -1,132 +1,101 @@
-# OniU — Decentralized Content Creator Platform
+# OniU
 
-> Built on BNB Chain · AES-256-GCM End-to-End Encryption · Non-Custodial
+**Subscribe. Create. Own.**
 
-**OniU** is an on-chain content monetization platform where creators retain full ownership of their content and earnings. All subscriptions, purchases, and revenue distributions are transparently recorded on the BNB Chain smart contract — the platform cannot tamper with them.
+OniU is a content platform where creators keep what they earn and fans actually own what they buy — powered by BNB Chain.
 
-🌐 **Live**: https://oniu.pages.dev
-
----
-
-## Features
-
-| Feature | Description |
-|---------|-------------|
-| 🔐 **E2E Encrypted Content** | Files are AES-256-GCM encrypted in the browser before upload. The server only ever stores ciphertext. |
-| ⛓️ **On-Chain Payments** | Subscriptions, PPV purchases, tips, and withdrawals all go through the smart contract — no intermediary holds funds. |
-| 🗂️ **Decentralized Storage** | Encrypted content is stored on IPFS via each creator's own Pinata account. |
-| 💬 **Encrypted DMs** | Premium creators can send one-to-one encrypted private messages with a custom unlock price. |
-| 🏆 **Super Fan Board** | On-chain tip records power a leaderboard for each creator's top fans. |
-| 🌍 **Multilingual** | Full Traditional Chinese (zh-TW) and English (en) support. |
+🌐 https://oniu.pages.dev
 
 ---
 
-## Creator Tiers
+## Why OniU?
+
+Most platforms take 30–50% of creator earnings, can suspend accounts without notice, and lock fans out of content they've already paid for.
+
+OniU is different:
+
+- **Creators get paid directly** — earnings go straight to your wallet via smart contract, no middleman holds your money
+- **Content you buy stays yours** — purchases are recorded on-chain permanently, nobody can take them away
+- **Nothing is stored in plaintext** — all paid content is encrypted in your browser before it ever leaves your device
+
+---
+
+## For Fans
+
+- Browse and subscribe to creators you love
+- Pay once for PPV content and keep it forever
+- Tip your favourite creators directly
+- Receive exclusive encrypted private messages from Premium creators
+- All purchases recorded on BNB Chain — accessible anytime
+
+**What you need to get started:**
+1. [MetaMask](https://metamask.io) browser wallet
+2. A small amount of BNB for transaction fees (~$0.01 per tx)
+3. USDT (BEP-20) to subscribe or purchase
+
+---
+
+## For Creators
+
+Choose the plan that fits your goals:
 
 | | Basic | Pro | Premium |
 |-|-------|-----|---------|
-| Platform Fee | 5% | 8% | 12% |
-| Subscription Revenue | ✅ | ✅ | ✅ |
-| PPV Content | — | ✅ | ✅ |
-| Tips | — | ✅ | ✅ |
-| Encrypted DM | — | — | ✅ |
+| Platform fee | 5% | 8% | 12% |
+| Subscription revenue | ✅ | ✅ | ✅ |
+| PPV content | — | ✅ | ✅ |
+| Fan tipping | — | ✅ | ✅ |
+| Encrypted DMs | — | — | ✅ |
+
+- Register once on-chain — your identity and tier are permanent
+- Set your own subscription price ($4.99–$99.99 USDT/month)
+- Upload encrypted content (images, video) — platform can never read it
+- Withdraw earnings to your wallet anytime (minimum $20 USDT)
+- Super Fan leaderboard ranks your top tippers
+
+> ⚠️ If your account is banned for violations, any unwithdrawn balance will be frozen. Comply with platform terms.
 
 ---
 
-## Smart Contract
+## Privacy & Security
 
 | | |
 |-|-|
-| **Network** | BNB Smart Chain (Chain ID: 56) |
-| **Contract** | [`0x5D6741386FFeC7AD7BeE9382CE3589e0319b2a80`](https://bscscan.com/address/0x5D6741386FFeC7AD7BeE9382CE3589e0319b2a80#code) |
-| **USDT (BEP-20)** | `0x55d398326f99059fF775485246999027B3197955` |
-| **Compiler** | Solidity `0.8.24`, Optimizer 200 runs |
-| **License** | MIT |
+| Content encryption | AES-256-GCM, done entirely in your browser |
+| Key storage | Your encryption keys are never stored in plaintext |
+| Payment records | Immutably written to BNB Chain, publicly verifiable |
+| Platform access | OniU cannot read your content or touch your wallet |
+| Session auth | Every write action requires a MetaMask-signed credential |
 
-The contract is **verified on BSCScan** — source code is publicly auditable.
-
-### Key Design Decisions
-
-- **Non-upgradeable**: No proxy pattern. Logic is immutable after deployment.
-- **Non-custodial**: The platform has no ability to move user or creator funds.
-- **cancelSubscription has no `whenNotPaused`**: Users can always cancel even during an emergency pause, preventing lock-in.
-- **2-step ownership transfer**: Prevents accidental transfer to the wrong address.
-- **Reentrancy protection**: Manual lock + Check-Effects-Interactions pattern on all withdrawal functions.
+Smart contract deployed on BNB Chain — verified and auditable on BSCScan.
 
 ---
 
-## Architecture
+## FAQ
 
-```
-Browser (MetaMask)
-    │
-    ├──── on-chain txs ────▶  CreatorPlatform.sol  (BNB Chain)
-    │                          subscriptions / PPV / tips / withdrawals
-    │
-    └──── REST API ────────▶  Cloudflare Worker  (oniu-api)
-                                    │
-                                    ├── Cloudflare D1 (SQLite)
-                                    │     creator profiles / content metadata / sub cache
-                                    │
-                                    └── BNB Chain RPC
-                                          event sync (every 5 min) / subscription verification
-```
+**Do I need crypto experience?**
+Basic familiarity with MetaMask is enough. If you can send USDT on BNB Chain, you can use OniU.
 
-### Tech Stack
+**What happens if OniU shuts down?**
+Content is stored on IPFS, not on OniU servers. Purchases are recorded on-chain. You don't lose access just because the website goes down.
 
-| Layer | Technology |
-|-------|-----------|
-| Smart Contract | Solidity 0.8.24, Foundry |
-| Backend API | Cloudflare Workers (TypeScript) |
-| Database | Cloudflare D1 (SQLite) |
-| Frontend | Vanilla HTML / CSS / JS, Cloudflare Pages |
-| Encryption | Web Crypto API — AES-256-GCM |
-| Blockchain library | ethers.js v6 |
-| File Storage | IPFS via Pinata (creator-managed) |
+**Can I get a refund?**
+Subscriptions are processed directly through a smart contract. Once the payment is distributed to the creator, refunds are not possible.
+
+**Is my wallet safe?**
+OniU never has access to your private key. All transactions require explicit approval through MetaMask.
+
+**How do I get USDT on BNB Chain?**
+Buy USDT on Binance or OKX and withdraw using the BEP-20 (BNB Smart Chain) network to your MetaMask address.
 
 ---
 
-## Security
+## Get Started
 
-### Content Encryption Flow
-
-```
-Upload:
-  Browser generates random AES-256-GCM key
-      → encrypts file locally
-      → uploads ciphertext to IPFS (creator's Pinata)
-      → encrypts the AES key with MetaMask session signature
-      → stores { encrypted_cid, encrypted_key } in D1
-
-Decrypt:
-  API verifies subscription / PPV purchase on-chain (source of truth)
-      → returns { encrypted_key, encrypted_cid }
-      → browser recovers AES key via MetaMask session signature
-      → decrypts content locally — server is never involved
-```
-
-### API Authentication
-
-All write endpoints require an **EIP-191 session signature**:
-
-```
-Message: "creator-platform:session:{address}:{unix_timestamp}"
-Valid for: 4 hours
-```
-
-The server verifies the recovered address matches the claimed address. No JWT, no cookies — just a signed message.
-
----
-
-## License
-
-MIT © 2026 OniU
+→ **[oniu.pages.dev](https://oniu.pages.dev)**
 
 ---
 
 <div align="center">
-  <a href="https://github.com/ImperialManta">GitHub</a> ·
-  <a href="https://x.com/ImperialManta">X (Twitter)</a> ·
-  <a href="https://oniu.pages.dev">Live App</a> ·
-  <a href="https://bscscan.com/address/0x5D6741386FFeC7AD7BeE9382CE3589e0319b2a80#code">BSCScan</a>
+  <a href="https://x.com/ImperialManta">X (Twitter)</a>
 </div>
