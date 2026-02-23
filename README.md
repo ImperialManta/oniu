@@ -86,31 +86,6 @@ Browser (MetaMask)
 
 ---
 
-## Repository Structure
-
-```
-├── contracts/
-│   └── CreatorPlatform.sol     # Main contract
-├── script/
-│   └── DeployBSC.s.sol         # Mainnet deploy script
-├── test/
-│   └── CreatorPlatform.t.sol   # Foundry tests
-├── workers/
-│   └── src/
-│       ├── index.ts            # Worker entry + CORS + cron scheduler
-│       └── creator.ts          # All API routes + chain sync logic
-├── frontend/
-│   ├── index.html              # Single-page app
-│   ├── app.js                  # Main logic
-│   ├── crypto.js               # AES-256-GCM helpers
-│   ├── i18n.js                 # zh-TW / en translations
-│   └── styles.css
-├── schema.sql                  # D1 database schema
-└── foundry.toml
-```
-
----
-
 ## Security
 
 ### Content Encryption Flow
